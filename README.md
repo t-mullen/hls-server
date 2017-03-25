@@ -8,7 +8,7 @@ First you need a compatible media stream (see [Producing Streams](#producing-str
 
 Fast way:
 ```javascript
-var HLSServer = require('hls-server')(8000)
+require('hls-server')(8000)
 ```
 
 Detailed way:
