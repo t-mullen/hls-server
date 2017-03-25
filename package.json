@@ -1,0 +1,21 @@
+{
+  "name": "hls-server",
+  "version": "1.0.0",
+  "description": "HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard --fix && tape test/*.js"
+  },
+  "author": "Thomas Mullen",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0",
+    "tape": "^4.6.3"
+  },
+  "dependencies": {
+    "http-attach": "^1.0.0"
+  }
+}
