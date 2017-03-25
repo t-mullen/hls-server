@@ -29,7 +29,7 @@ HLS can only stream files that have been properly segmented. FFMPEG is great for
 Here is how to do it with [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg).
 
 ```javascript
-var ffmpeg = require('fluent-ffmpeg)
+var ffmpeg = require('fluent-ffmpeg')
 
 fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline',
