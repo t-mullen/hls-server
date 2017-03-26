@@ -41,3 +41,6 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-f hls'
   ]).output('output.mp4').on('end', cb).run()
 ```
+
+### TODO:
+- Publishing live streams from RTSP/RTMP clients
