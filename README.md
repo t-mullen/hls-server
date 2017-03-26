@@ -1,7 +1,11 @@
 # hls-server
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
+This package aims to be a complete yet concise streaming solution when it is complete.  
 
-This package makes it easy to serve video over HLS.  
+- [X] Input from video files (webm, mp4, mov, etc)
+- [ ] Input from existing live streams (RTMP, RTSP, etc)
+- [ ] Input from streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
+- [X] Output as HLS live stream
 
 ## Usage
 First you need a compatible media stream (see [Producing Streams](#producing-streams))
