@@ -43,4 +43,4 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
 ```
 
 ### TODO:
-- Publishing live streams from RTSP/RTMP clients
+- Publishing from streams instead of files.
