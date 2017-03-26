@@ -1,4 +1,4 @@
-# hls-server
+# hls-server (WIP)
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
 This package aims to be a complete yet concise streaming solution when it is complete.  
 
@@ -22,8 +22,8 @@ var http = require('http')
 
 var server = http.createServer()
 var hls = new HLSServer(server, {
-  path: '/',
-  dir: ''
+  path: '/', // Base URI to output HLS streams
+  dir: ''    // Directory that input files are stored
 })
 server.listen(8000)
 ```
