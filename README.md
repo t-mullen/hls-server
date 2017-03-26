@@ -1,4 +1,4 @@
-# hls-server (WIP)
+# hls-server
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
 This package aims to be a complete yet concise streaming solution when it is complete.  
 
