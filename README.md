@@ -29,7 +29,7 @@ server.listen(8000)
 ```
 
 ### Producing Streams
-HLS can only stream files that have been properly segmented. FFMPEG is great for this.  
+HLS can only stream files that have been properly encoded and segmented. FFMPEG is great for this.  
 Here is how to do it with [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg).
 
 ```javascript
