@@ -3,7 +3,7 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 This package aims to be a complete yet concise streaming solution when it is complete.  
 
 - [X] Input from video files (webm, mp4, mov, etc)
-- [ ] Input from existing live streams (RTMP, RTSP, HLS, MPEG-DASH, etc)
+- [ ] Input from existing live streams (RTMP, RTSP, MPEG-DASH, etc)
 - [ ] Input from streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
 - [X] Output as HLS live stream
 
