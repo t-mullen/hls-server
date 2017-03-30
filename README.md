@@ -43,7 +43,7 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-hls_time 10',
     '-hls_list_size 0',
     '-f hls'
-  ]).output('output.m3u8').on('end', cb).run()
+  ]).output('output.m3u8').on('end', callback).run()
 ```
 
 ### TODO:
