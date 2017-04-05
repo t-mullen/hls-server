@@ -2,7 +2,7 @@
   "name": "hls-server",
   "version": "1.0.1",
   "description": "HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams",
-  "main": "index.js",
+  "main": "src/index.js",
   "directories": {
     "test": "test"
   },
