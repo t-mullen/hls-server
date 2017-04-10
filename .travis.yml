@@ -1,4 +1,5 @@
-before_script: "sudo aptitude -y -q install ffmpeg libvpx-dev libvpx0 x264 libx264-85 libx264-dev"
+before_install:
+  - ./travis-install-ffmpeg.sh
 language: node_js
 sudo: required
 node_js:
