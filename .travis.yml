@@ -1,6 +1,6 @@
 before_script: "sudo aptitude -y -q install ffmpeg libvpx-dev libvpx0 x264 libx264-85 libx264-dev"
 language: node_js
-sudo: false
+sudo: required
 node_js:
 - '5'
 script:
