@@ -1,5 +1,5 @@
 before_install:
-  - ./travis-install-ffmpeg.sh
+  - sudo ./travis-install-ffmpeg.sh
 language: node_js
 sudo: required
 node_js:
