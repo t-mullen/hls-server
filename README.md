@@ -6,7 +6,7 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 
 - [X] Input from video files (webm, mp4, mov, etc)
 - [ ] Input from existing live streams (RTMP, RTSP, MPEG-DASH, etc)
-- [ ] Input from streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
+- [ ] Input from RTMP streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
 - [X] Output as HLS live stream
 
 ## Usage
