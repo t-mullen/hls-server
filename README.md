@@ -47,6 +47,3 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-f hls'
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
-
-### TODO:
-- Publishing from streams instead of files.
