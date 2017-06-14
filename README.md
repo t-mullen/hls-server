@@ -1,5 +1,5 @@
 # hls-server
-[![Build Status](https://travis-ci.org/RationalCoding/hls-server.svg?branch=master&nonce=1937)](https://travis-ci.org/RationalCoding/hls-server) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)  
+[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)  
 
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
 *This package aims to be a complete yet concise HLS streaming solution when it is complete.*  
