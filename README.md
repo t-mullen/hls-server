@@ -5,7 +5,7 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 *This package aims to be a complete yet concise HLS streaming solution when it is complete.*  
 
 - [X] Input from video files (webm, mp4, mov, etc)
-- [ ] Input from existing live streams (RTMP, RTSP, MPEG-DASH, etc)
+- [X] Input from existing live streams (RTMP, RTSP, MPEG-DASH, etc)
 - [ ] Input from RTMP streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
 - [ ] Adaptive Bitrate (ABR)
 - [X] Output as HLS live stream
@@ -38,6 +38,8 @@ Here is how to do it with [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/
 ```javascript
 var ffmpeg = require('fluent-ffmpeg')
 
+function callback() { // do something when encoding is done }
+
 fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline',
     '-level 3.0',
@@ -46,5 +48,34 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-hls_time 10',
     '-hls_list_size 0',
     '-f hls'
+  ]).output('public/videos/output.m3u8').on('end', callback).run()
+```
+
+To create segments from an existing RTMP stream, use the following [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg) command. You can expect 20-50 seconds of latency, depending on hardware.
+
+```javascript
+var ffmpeg = require('fluent-ffmpeg')
+
+// host, port and path to the RTMP stream
+var host = 'localhost'
+var port = '1935'
+var path = '/live/test'
+
+function callback() { // do something when stream ends and encoding finshes }
+
+fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
+    '-c:v libx264',
+    '-c:a aac',
+    '-ac 1',
+    '-strict -2',
+    '-crf 18',
+    '-profile:v baseline',
+    '-maxrate 400k',
+    '-bufsize 1835k',
+    '-pix_fmt yuv420p',
+    '-hls_time 10',
+    '-hls_list_size 6',
+    '-hls_wrap 10',
+    '-start_number 1'
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
