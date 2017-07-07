@@ -5,8 +5,7 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 *This package aims to be a complete yet concise HLS streaming solution when it is complete.*  
 
 - [X] Input from video files (webm, mp4, mov, etc)
-- [X] Input from existing live streams (RTMP, RTSP, MPEG-DASH, etc)
-- [ ] Input from RTMP streaming clients (FFMPEG, OBS, Adobe FMLE, etc)
+- [X] Input from existing live streams (RTMP)
 - [ ] Adaptive Bitrate (ABR)
 - [X] Output as HLS live stream
 
@@ -79,3 +78,5 @@ fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
     '-start_number 1'
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
+
+To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs).
