@@ -8,6 +8,7 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 - [X] Input from existing live streams (RTMP)
 - [ ] Adaptive Bitrate (ABR)
 - [X] Output as HLS live stream
+- [ ] Performance optimizations
 
 ## Usage
 First you need a compatible media stream (see [Producing Streams](#producing-streams))
