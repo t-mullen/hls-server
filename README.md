@@ -80,4 +80,4 @@ fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
 
-To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs).
+To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs) to echo the stream.
