@@ -81,3 +81,5 @@ fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
 ```
 
 To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs) to echo the stream.
+
+NOTE: Transcoding live streams is very CPU-intensive. Most consumer hardware won't be able to handle transcoding more than a few streams.
