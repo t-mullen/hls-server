@@ -40,7 +40,7 @@ var ffmpeg = require('fluent-ffmpeg')
 
 function callback() { // do something when encoding is done }
 
-fmpeg('input.mp4', { timeout: 432000 }).addOptions([
+ffmpeg('input.mp4', { timeout: 432000 }).addOptions([
     '-profile:v baseline',
     '-level 3.0',
     '-s 640x360',
@@ -63,7 +63,7 @@ var path = '/live/test'
 
 function callback() { // do something when stream ends and encoding finshes }
 
-fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
+ffmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
     '-c:v libx264',
     '-c:a aac',
     '-ac 1',
