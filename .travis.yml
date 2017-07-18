@@ -1,5 +1,6 @@
 before_install:
-  - sudo ./travis-install-ffmpeg.sh
+  - sudo add-apt-repository ppa:jonathonf/ffmpeg-3
+  - sudo apt update && sudo apt install ffmpeg libav-tools x264 x265
 language: node_js
 sudo: required
 node_js:
