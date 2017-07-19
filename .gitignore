@@ -1,1 +1,3 @@
-test/files/output
+test/files/output/*
+!test/files/output/directory
+node_modules

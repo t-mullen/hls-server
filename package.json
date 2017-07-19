@@ -16,6 +16,7 @@
     "tape": "^4.6.3"
   },
   "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
     "http-attach": "^1.0.0"
   }
 }
