@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "bin": {
+    "hlsserver": "./src/cli.js"
+  },
   "scripts": {
     "test": "standard --fix && tape test/*.js"
   },
@@ -16,6 +19,7 @@
     "tape": "^4.6.3"
   },
   "dependencies": {
-    "http-attach": "^1.0.0"
+    "http-attach": "^1.0.0",
+    "minimist": "^1.2.0"
   }
 }
