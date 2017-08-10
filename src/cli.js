@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var HLSServer = require('./index')
 var http = require('http')
 var argv = require('minimist')(process.argv.slice(2))
