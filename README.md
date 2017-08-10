@@ -84,7 +84,7 @@ To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nod
 
 *NOTE: Transcoding live streams is very CPU-intensive. Most consumer hardware won't be able to handle transcoding more than a few streams.*
 
-### CLI Tool
+## CLI Tool
 
 This package includes a CLI tool that can be installed globally with `npm install -g hls-server`.
 
