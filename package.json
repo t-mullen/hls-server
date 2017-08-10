@@ -16,7 +16,8 @@
   "license": "MIT",
   "devDependencies": {
     "standard": "^8.6.0",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "fluent-ffmpeg": "^2.1.2"
   },
   "dependencies": {
     "http-attach": "^1.0.0",
