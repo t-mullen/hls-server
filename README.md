@@ -2,11 +2,6 @@
 [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)  
 
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
-*This package aims to be a complete yet concise HLS streaming solution when it is complete.*  
-
-- [X] Input from video files (webm, mp4, mov, etc)
-- [X] Input from existing live streams (RTMP)
-- [X] Output as HLS live stream
 
 ## Usage
 First you need a compatible media stream (see [Producing Streams](#producing-streams))
