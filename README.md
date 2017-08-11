@@ -6,7 +6,6 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 
 - [X] Input from video files (webm, mp4, mov, etc)
 - [X] Input from existing live streams (RTMP)
-- [ ] Adaptive Bitrate (ABR)
 - [X] Output as HLS live stream
 - [ ] Performance optimizations
 
