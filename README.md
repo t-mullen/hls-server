@@ -7,7 +7,6 @@ Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media st
 - [X] Input from video files (webm, mp4, mov, etc)
 - [X] Input from existing live streams (RTMP)
 - [X] Output as HLS live stream
-- [ ] Performance optimizations
 
 ## Usage
 First you need a compatible media stream (see [Producing Streams](#producing-streams))
