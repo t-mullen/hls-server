@@ -10,6 +10,7 @@
     "hlsserver": "./src/cli.js"
   },
   "scripts": {
+    "start": "node src/cli.js",
     "test": "standard --fix && tape test/*.js"
   },
   "author": "Thomas Mullen",

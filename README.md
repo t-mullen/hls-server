@@ -73,9 +73,32 @@ fmpeg('rtmp://'+host+':'+port+path, { timeout: 432000 }).addOptions([
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
 
-To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs) to echo the stream.
+## Using In-Memory Streams
+By default, this module assumes files are kept in a directory on the local filesystem. If you want to stream files from another source (or don't want to relate URL paths to filesystem paths), you can specify a provider in the options like so:
 
-*NOTE: Transcoding live streams is very CPU-intensive. Most consumer hardware won't be able to handle transcoding more than a few streams.*
+```javascript
+var hls = new HLSServer(server, {
+  provider: {
+    getManifestStream: function (req, callback) { // return the correct .m3u8 file
+      // "req" is the http request
+      // "callback" must be called with error-first arguments
+      callback(null, myNodeStream)
+      // or
+      callback(new Error("Server error!"), null)
+    },
+    getSegmentStream: function (req, callback) { // return the correct .ts file
+      callback(null, myNodeStream)
+    },
+    exists: function (req, callback) { // check if a file exists
+      callback(null, true)                 // File exists and is ready to start streaming
+      callback(new Error("Server Error!")) // 500 error
+      callback(null, false)                // 404 error
+    }
+  }
+})
+```
+
+See `src/fsProvider.js` for the default provider using the local filesystem.
 
 ## CLI Tool
 
@@ -83,4 +106,9 @@ This package includes a CLI tool that can be installed globally with `npm instal
 
 To use, navigate to the directory where your `.ts` files are stored and run `hlsserver` in a command prompt. This will start a server on port 8000. (Use `hlsserver --help` to see additional options.)
 
+## Notes
+
+To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs) to echo the stream.
+
+*NOTE: Transcoding live streams is very CPU-intensive. Most consumer hardware won't be able to handle transcoding more than a few streams.*
 

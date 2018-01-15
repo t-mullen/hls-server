@@ -1,11 +1,12 @@
 module.exports = HLSServer
 
 var http = require('http')
-var fs = require('fs')
 var url = require('url')
 var path = require('path')
 var zlib = require('zlib')
 var httpAttach = require('http-attach')
+var fsProvider = require('./fsProvider')
+var debugPlayer = require('./debugPlayer')
 
 var CONTENT_TYPE = {
   MANIFEST: 'application/vnd.apple.mpegurl',
@@ -28,6 +29,8 @@ HLSServer.prototype.attach = function (server, opts) {
   self.dir = opts.dir || self.dir || ''
   self.debugPlayer = opts.debugPlayer == null ? true : opts.debugPlayer
 
+  self.provider = opts.provider || fsProvider
+
   if (isNaN(server)) {
     httpAttach(server, self._middleware.bind(self))
   } else {  // Port numbers
@@ -46,22 +49,31 @@ HLSServer.prototype._middleware = function (req, res, next) {
   var filePath = path.join(self.dir, relativePath)
   var extension = path.extname(filePath)
 
+  req.filePath = filePath
+
+  // Gzip support
+  var ae = req.headers['accept-encoding']
+  req.acceptsCompression = ae.match(/\bgzip\b/)
+
   if (uri === '/player.html' && self.debugPlayer) {
     self._writeDebugPlayer(res, next)
     return
   }
 
-  fs.exists(filePath, function (exists) {
-    if (!exists) {
+  self.provider.exists(req, function (err, exists) {
+    if (err) {
+      res.writeHead(500)
+      res.end()
+    } else if (!exists) {
       res.writeHead(404)
       res.end()
     } else {
       switch (extension) {
         case '.m3u8':
-          self._writeManifest(filePath, req, res, next)
+          self._writeManifest(req, res, next)
           break
         case '.ts':
-          self._writeSegment(filePath, res, next)
+          self._writeSegment(req, res, next)
           break
         default:
           next()
@@ -74,55 +86,43 @@ HLSServer.prototype._middleware = function (req, res, next) {
 HLSServer.prototype._writeDebugPlayer = function (res, next) {
   res.writeHead(200, { 'Content-Type': CONTENT_TYPE.HTML })
   // TODO: Use HLS.js
-  res.write(`
-    <html>
-    <head><title>Debug Player</title></head>
-      <body>
-        <video src="" controls autoplay></video>
-        <br>
-        <input type="text" />
-        <script>
-          document.querySelector("input").addEventListener("keyup", function () {
-            document.querySelector("video").src = document.querySelector("input").value
-          })
-        </script>
-      </body>
-    </html>`)
+  res.write(debugPlayer.html)
   res.end()
   next()
 }
 
-HLSServer.prototype._writeManifest = function (filePath, req, res, next) {
-  fs.readFile(filePath, function (err, contents) {
-    if (err || !contents) { // Error or empty playlist
+HLSServer.prototype._writeManifest = function (req, res, next) {
+  var self = this
+
+  self.provider.getManifestStream(req, function (err, stream) {
+    if (err) {
       res.writeHead(500)
       res.end()
       return next()
     }
 
     res.writeHead(200, {'Content-Type': CONTENT_TYPE.MANIFEST})
-    var ae = req.headers['accept-encoding']
 
-    if (ae.match(/\bgzip\b/)) { // Gzip support
-      zlib.gzip(contents, function (err, zip) {
-        if (err) {
-          res.writeHead(500)
-          res.end()
-          return next()
-        }
-
-        res.writeHead(200, {'content-encoding': 'gzip'})
-        res.end(zip)
-        next()
-      })
+    if (req.acceptsCompression) {
+      res.writeHead(200, {'content-encoding': 'gzip'})
+      var gzip = zlib.createGzip()
+      stream.pipe(gzip).pipe(res)
     } else {
-      res.end(contents, 'utf-8')
-      next()
+      stream.pipe(res, 'utf-8')
     }
   })
 }
 
-HLSServer.prototype._writeSegment = function (filePath, res, next) {
-  res.writeHead(200, { 'Content-Type': CONTENT_TYPE.SEGMENT })
-  fs.createReadStream(filePath, { bufferSize: 64 * 1024 }).pipe(res)
+HLSServer.prototype._writeSegment = function (req, res, next) {
+  var self = this
+
+  self.provider.getSegmentStream(req, function (err, stream) {
+    if (err) {
+      res.writeHead(500)
+      res.end()
+      return
+    }
+    res.writeHead(200, { 'Content-Type': CONTENT_TYPE.SEGMENT })
+    stream.pipe(res)
+  })
 }
