@@ -108,6 +108,8 @@ This package includes a CLI tool that can be installed globally with `npm instal
 
 To use, navigate to the directory where your `.ts` files are stored and run `hlsserver` in a command prompt. This will start a server on port 8000. (Use `hlsserver --help` to see additional options.)
 
+The CLI tool will efficiently make use of multi-processor computers via the `cluster` module and can be used as an example of how to use the base module in the same way.
+
 ## Notes
 
 To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nodejs](https://github.com/RationalCoding/rtmp-server-nodejs) to echo the stream (direct streaming from that module is being worked on).
