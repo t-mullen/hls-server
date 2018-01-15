@@ -79,6 +79,11 @@ By default, this module assumes files are kept in a directory on the local files
 ```javascript
 var hls = new HLSServer(server, {
   provider: {
+    exists: function (req, callback) { // check if a file exists (always called before the below methods)
+      callback(null, true)                 // File exists and is ready to start streaming
+      callback(new Error("Server Error!")) // 500 error
+      callback(null, false)                // 404 error
+    },
     getManifestStream: function (req, callback) { // return the correct .m3u8 file
       // "req" is the http request
       // "callback" must be called with error-first arguments
@@ -88,11 +93,6 @@ var hls = new HLSServer(server, {
     },
     getSegmentStream: function (req, callback) { // return the correct .ts file
       callback(null, myNodeStream)
-    },
-    exists: function (req, callback) { // check if a file exists
-      callback(null, true)                 // File exists and is ready to start streaming
-      callback(new Error("Server Error!")) // 500 error
-      callback(null, false)                // 404 error
     }
   }
 })
