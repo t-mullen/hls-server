@@ -46,7 +46,7 @@ fmpeg('input.mp4', { timeout: 432000 }).addOptions([
   ]).output('public/videos/output.m3u8').on('end', callback).run()
 ```
 
-To create segments from an existing RTMP stream, use the following [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg) command. You can expect 20-50 seconds of latency, depending on hardware.
+To create segments from an existing RTMP stream, use the following [node-fluent-ffmpeg](https://github.com/fluent-ffmpeg/node-fluent-ffmpeg) command. You can expect several seconds of latency, depending on hardware.
 
 ```javascript
 var ffmpeg = require('fluent-ffmpeg')
