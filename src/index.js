@@ -52,7 +52,7 @@ HLSServer.prototype._middleware = function (req, res, next) {
   req.filePath = filePath
 
   // Gzip support
-  var ae = req.headers['accept-encoding']
+  var ae = req.headers['accept-encoding'] || ''
   req.acceptsCompression = ae.match(/\bgzip\b/)
 
   if (uri === '/player.html' && self.debugPlayer) {
