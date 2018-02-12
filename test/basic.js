@@ -64,10 +64,10 @@ test('constructor with http server (CORS)', function (t) {
 
   var httpServer = http.createServer()
   function addCors (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Request-Method', '*')
+    res.setHeader('Access-Control-Allow-Origin', req.header.origin)
+    res.setHeader('Access-Control-Request-Method', req.header.origin)
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
-    res.setHeader('Access-Control-Allow-Headers', '*')
+    res.setHeader('Access-Control-Allow-Headers', req.header.origin)
     if (req.method === 'OPTIONS') {
       res.writeHead(200)
       res.end()
