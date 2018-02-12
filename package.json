@@ -16,9 +16,10 @@
   "author": "Thomas Mullen",
   "license": "MIT",
   "devDependencies": {
+    "fluent-ffmpeg": "^2.1.2",
+    "request": "^2.83.0",
     "standard": "^8.6.0",
-    "tape": "^4.6.3",
-    "fluent-ffmpeg": "^2.1.2"
+    "tape": "^4.6.3"
   },
   "dependencies": {
     "http-attach": "^1.0.0",
