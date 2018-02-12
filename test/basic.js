@@ -41,7 +41,7 @@ test('constructor without http server', function (t) {
 })
 
 test('constructor with http server', function (t) {
-  t.plan(1)
+  t.plan(2)
 
   var httpServer = http.createServer()
   var hls2 = new HLSServer(httpServer)
@@ -49,7 +49,7 @@ test('constructor with http server', function (t) {
   t.ok(hls2, 'Server not null')
 
   request({
-    url: 'http://127.0.0.1:9082/test/files/output/out.m3u8'
+    url: 'http://127.0.0.1:9081/test/files/output/out.m3u8'
   }, function (error, response, body) {
     if (error) t.fail('Manifest failed with error ' + error)
     if (response.statusCode !== 200) t.fail('Wrong status code ' + response.statusCode)
@@ -85,7 +85,7 @@ test('constructor with http server (CORS)', function (t) {
   request({
     url: 'http://127.0.0.1:9082/test/files/output/out.m3u8',
     headers: {
-      Origin: 'http://NOTTHERIGHTORIGIN.example'
+      origin: 'http://NOTTHERIGHTORIGIN.example'
     }
   }, function (error, response, body) {
     if (error) t.fail('Manifest failed with error ' + error)

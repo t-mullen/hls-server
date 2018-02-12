@@ -62,10 +62,10 @@ HLSServer.prototype._middleware = function (req, res, next) {
 
   self.provider.exists(req, function (err, exists) {
     if (err) {
-      res.writeHead(500)
+      res.statusCode = 500
       res.end()
     } else if (!exists) {
-      res.writeHead(404)
+      res.statusCode = 404
       res.end()
     } else {
       switch (extension) {
@@ -84,7 +84,8 @@ HLSServer.prototype._middleware = function (req, res, next) {
 }
 
 HLSServer.prototype._writeDebugPlayer = function (res, next) {
-  res.writeHead(200, { 'Content-Type': CONTENT_TYPE.HTML })
+  res.setHeader('Content-Type', CONTENT_TYPE.HTML)
+  res.statusCode = 200
   // TODO: Use HLS.js
   res.write(debugPlayer.html)
   res.end()
@@ -96,15 +97,17 @@ HLSServer.prototype._writeManifest = function (req, res, next) {
 
   self.provider.getManifestStream(req, function (err, stream) {
     if (err) {
-      res.writeHead(500)
+      res.statusCode = 500
       res.end()
       return next()
     }
 
-    res.writeHead(200, {'Content-Type': CONTENT_TYPE.MANIFEST})
+    res.setHeader('Content-Type', CONTENT_TYPE.MANIFEST)
+    res.statusCode = 200
 
     if (req.acceptsCompression) {
-      res.writeHead(200, {'content-encoding': 'gzip'})
+      res.setHeader('content-encoding', 'gzip')
+      res.statusCode = 200
       var gzip = zlib.createGzip()
       stream.pipe(gzip).pipe(res)
     } else {
@@ -118,11 +121,12 @@ HLSServer.prototype._writeSegment = function (req, res, next) {
 
   self.provider.getSegmentStream(req, function (err, stream) {
     if (err) {
-      res.writeHead(500)
+      res.statusCode = 500
       res.end()
       return
     }
-    res.writeHead(200, { 'Content-Type': CONTENT_TYPE.SEGMENT })
+    res.setHeader('Content-Type', CONTENT_TYPE.SEGMENT)
+    res.statusCode = 200
     stream.pipe(res)
   })
 }
