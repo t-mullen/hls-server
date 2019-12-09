@@ -7,6 +7,6 @@ before_install:
 language: node_js
 sudo: required
 node_js:
-- '5'
+- lts/*
 script:
 - npm run test
