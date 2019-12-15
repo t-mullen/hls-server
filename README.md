@@ -1,7 +1,6 @@
 # hls-server
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Travis](https://travis-ci.org/t-mullen/hls-server.svg?branch=master)](https://travis-ci.org/t-mullen/hls-server)
-[![Donate A Coffee](https://img.shields.io/badge/-donate%20a%20coffee-orange)](https://www.buymeacoffee.com/tmullen)
 
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
 
