@@ -22,6 +22,14 @@ function HLSServer (server, opts) {
   if (server) self.attach(server, opts)
 }
 
+function getRequestPathname ( req ) {
+    return url.parse(req.url).pathname;
+}
+
+function getRequestPathExtension ( req ) {
+    return path.extname( getRequestPathname( req ) )
+}
+
 HLSServer.prototype.attach = function (server, opts) {
   var self = this
 
@@ -76,11 +84,11 @@ HLSServer.prototype._middleware = function (req, res, next) {
         case '.ts':
           self._writeSegment(req, res, next)
           break
-        case '.aac':
-          self._writeAAC(req, res, next)
-          break
-        default:
-          next()
+      default:
+          if ( extension )
+              self._writeGeneric(req, res, next );
+          else
+              next();
           break
       }
     }
@@ -135,7 +143,7 @@ HLSServer.prototype._writeSegment = function (req, res, next) {
   })
 }
 
-HLSServer.prototype._writeAAC = function (req, res, next) {
+HLSServer.prototype._writeGeneric = function (req, res, next) {
   var self = this
 
   self.provider.getSegmentStream(req, function (err, stream) {
@@ -144,7 +152,7 @@ HLSServer.prototype._writeAAC = function (req, res, next) {
       res.end()
       return
     }
-    res.setHeader('Content-Type', mime.contentType('.aac'))
+    res.setHeader('Content-Type', mime.contentType(getRequestPathExtension(req)))
     res.statusCode = 200
     stream.pipe(res)
   })
