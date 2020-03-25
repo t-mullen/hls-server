@@ -4,6 +4,7 @@ var http = require('http')
 var url = require('url')
 var path = require('path')
 var zlib = require('zlib')
+var mime = require('mime-types')
 var httpAttach = require('http-attach')
 var fsProvider = require('./fsProvider')
 var debugPlayer = require('./debugPlayer')
@@ -75,6 +76,9 @@ HLSServer.prototype._middleware = function (req, res, next) {
         case '.ts':
           self._writeSegment(req, res, next)
           break
+        case '.aac':
+          self._writeAAC(req, res, next)
+          break
         default:
           next()
           break
@@ -126,6 +130,21 @@ HLSServer.prototype._writeSegment = function (req, res, next) {
       return
     }
     res.setHeader('Content-Type', CONTENT_TYPE.SEGMENT)
+    res.statusCode = 200
+    stream.pipe(res)
+  })
+}
+
+HLSServer.prototype._writeAAC = function (req, res, next) {
+  var self = this
+
+  self.provider.getSegmentStream(req, function (err, stream) {
+    if (err) {
+      res.statusCode = 500
+      res.end()
+      return
+    }
+    res.setHeader('Content-Type', mime.contentType('.aac'))
     res.statusCode = 200
     stream.pipe(res)
   })
