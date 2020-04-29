@@ -5,7 +5,7 @@
 Simple HTTP middleware for serving HTTP Live Streaming (HLS) compatible media streams.  
 
 ## Usage
-First you need a compatible media stream (see [Producing Streams](#producing-streams))
+First you need a compatible media stream (see [Producing Streams](#producing-streams)).
 
 Fast way:
 ```javascript
@@ -109,7 +109,7 @@ This package includes a CLI tool that can be installed globally with `npm instal
 
 To use, navigate to the directory where your `.ts` files are stored and run `hlsserver` in a command prompt. This will start a server on port 8000. (Use `hlsserver --help` to see additional options.)
 
-The CLI tool will efficiently make use of multi-processor computers via the `cluster` module and can be used as an example of how to use the base module in the same way.
+The CLI tool will efficiently make use of multiple processors via the `cluster` module and can be used as an example of how to use the base module in the same way.
 
 ## Notes
 
