@@ -117,8 +117,3 @@ To publish from an RTMP client like OBS, use a RTMP server like [rtmp-server-nod
 
 *NOTE: Transcoding live streams is very CPU-intensive. Most consumer hardware won't be able to handle transcoding more than a few streams.*
 
-## Sponsors
-Support this project by becoming a sponsor. Your logo will appear here with a link to your website. [[Become a sponsor](https://github.com/sponsors/t-mullen)]
-
-<a href="https://filefire.ca"><img src="https://user-images.githubusercontent.com/14932492/84754967-15413300-af8f-11ea-80b8-3d04cccc2671.png" align="left" height="48" ></a>
-
