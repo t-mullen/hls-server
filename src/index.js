@@ -4,6 +4,7 @@ var http = require('http')
 var url = require('url')
 var path = require('path')
 var zlib = require('zlib')
+var mime = require('mime-types')
 var httpAttach = require('http-attach')
 var fsProvider = require('./fsProvider')
 var debugPlayer = require('./debugPlayer')
@@ -19,6 +20,14 @@ function HLSServer (server, opts) {
   if (!(self instanceof HLSServer)) return new HLSServer(server, opts)
 
   if (server) self.attach(server, opts)
+}
+
+function getRequestPathname ( req ) {
+    return url.parse(req.url).pathname;
+}
+
+function getRequestPathExtension ( req ) {
+    return path.extname( getRequestPathname( req ) )
 }
 
 HLSServer.prototype.attach = function (server, opts) {
@@ -75,8 +84,11 @@ HLSServer.prototype._middleware = function (req, res, next) {
         case '.ts':
           self._writeSegment(req, res, next)
           break
-        default:
-          next()
+      default:
+          if ( extension )
+              self._writeGeneric(req, res, next );
+          else
+              next();
           break
       }
     }
@@ -126,6 +138,21 @@ HLSServer.prototype._writeSegment = function (req, res, next) {
       return
     }
     res.setHeader('Content-Type', CONTENT_TYPE.SEGMENT)
+    res.statusCode = 200
+    stream.pipe(res)
+  })
+}
+
+HLSServer.prototype._writeGeneric = function (req, res, next) {
+  var self = this
+
+  self.provider.getSegmentStream(req, function (err, stream) {
+    if (err) {
+      res.statusCode = 500
+      res.end()
+      return
+    }
+    res.setHeader('Content-Type', mime.contentType(getRequestPathExtension(req)))
     res.statusCode = 200
     stream.pipe(res)
   })
